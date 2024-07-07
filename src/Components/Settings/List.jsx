@@ -1,14 +1,14 @@
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import Typography from "@mui/material/Typography";
-import PropTypes from "prop-types";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { Card, CardContent } from "@mui/material";
-import { styled } from '@mui/material/styles';
-
-
-
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
+import { styled } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -35,7 +35,7 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
     fontSize: theme.typography.pxToRem(15),
     marginRight: theme.spacing(1),
     color: "#141414",
-    
+
     "&.Mui-selected": {
       color: "#0c828f",
     },
@@ -44,6 +44,7 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
     },
   })
 );
+
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -57,7 +58,11 @@ function CustomTabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography variant="h5" sx={{ mb: 2 }}>
+            {children}
+          </Typography>
+          {index === 0 && <ProfileForm />}
+          {index === 1 && <ChangePasswordForm />}
         </Box>
       )}
     </div>
@@ -70,6 +75,76 @@ CustomTabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
+const ProfileForm = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <TextField label="First Name" variant="outlined" fullWidth margin="normal" />
+      <TextField label="Last Name" variant="outlined" fullWidth margin="normal" />
+      <TextField label="Email" type="email" variant="outlined" fullWidth margin="normal" />
+      <TextField
+        label="Phone Number"
+        type="tel"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        label="Address"
+        variant="outlined"
+        fullWidth
+        multiline
+        rows={2}
+        margin="normal"
+      />
+      <Button type="submit" variant="contained" color="primary">
+        Save Profile
+      </Button>
+    </form>
+  );
+};
+
+const ChangePasswordForm = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <TextField
+        type="password"
+        label="Current Password"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        type="password"
+        label="New Password"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        type="password"
+        label="Confirm New Password"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+      />
+      <Button type="submit" variant="contained" color="primary">
+        Change Password
+      </Button>
+    </form>
+  );
+};
+
+// Utility function to generate accessibility props for tabs
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -85,7 +160,7 @@ export default function List() {
   };
 
   return (
-    <Card sx={{ minHeight: 84 + "vh" }}>
+    <Card sx={{ minHeight: "84vh", mt: 2 }}>
       <CardContent>
         <Box sx={{ width: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -94,19 +169,15 @@ export default function List() {
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <StyledTab label="Item One" {...a11yProps(0)} />
-              <StyledTab label="Item Two" {...a11yProps(1)} />
-              <StyledTab label="Item Three" {...a11yProps(2)} />
+              <StyledTab label="Profile Information" {...a11yProps(0)} />
+              <StyledTab label="Change Password" {...a11yProps(1)} />
             </StyledTabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
-            Item One
+            Profile Information
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            Item Two
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={2}>
-            Item Three
+            Change Password
           </CustomTabPanel>
         </Box>
       </CardContent>

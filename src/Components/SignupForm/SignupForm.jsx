@@ -15,15 +15,22 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
+
 const SignupForm = () => {
   const btnstyle = { margin: "9px 0" };
-  const paperStyle = { padding: 20, width: 450, margin: "100px auto" };
+  const paperStyle = { padding: 20, width: 450, margin: "100px auto", backgroundColor: "rgba(255, 255, 255, 0.8)" };
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: "#1bbd7e", width: 60, height: 60 };
   const marginTop = { marginTop: 5 };
+  const gridStyle = {
+    backgroundImage: 'url("https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?size=626&ext=jpg&ga=GA1.1.2113030492.1720310400&semt=sph")',
+    backgroundSize: 'cover',
+    height: '100vh',
+    padding: 20
+  };
 
   return (
-    <Grid>
+    <Grid container style={gridStyle} alignItems="center" justify="center">
       <Paper elevation={20} style={paperStyle}>
         <Grid align="center">
           <Avatar style={avatarStyle}>
@@ -32,7 +39,7 @@ const SignupForm = () => {
           <h2 style={headerStyle}>SignUp Form</h2>
           <div style={{ marginBottom: 20 }} />
           <Typography variant="caption">
-            Please fill this form to create an account !
+            Please fill this form to create an account!
           </Typography>
         </Grid>
         <form>
@@ -81,19 +88,18 @@ const SignupForm = () => {
           />
           <div style={{ marginBottom: 20 }} />
           <TextField
-          id="outlined-basic"
-          label="Password"
-          type="Password"
-          variant="outlined"
-          fullWidth
-          required
-        />
+            id="outlined-basic"
+            label="Password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            required
+          />
           <div style={{ marginBottom: 20 }} />
           <FormControlLabel
             control={<Checkbox name="checkedA" />}
             label="I accept the terms and conditions."
           />
-
           <Link to="/login">
             <Button
               type="submit"
